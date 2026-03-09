@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.db.database import engine, Base
+from app.api.v1.auth import router as auth_router
 
 import app.models
 
@@ -8,6 +8,9 @@ app = FastAPI(
     description="API for managing projects and tasks",
     version="1.0.0"
 )
+
+app.include_router(auth_router)
+
 
 @app.get("/")
 def health_check():
