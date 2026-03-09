@@ -9,10 +9,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Crea todas las tablas que existen en los modelos definidos en app.models
-Base.metadata.create_all(bind=engine)
-
-
 @app.get("/")
 def health_check():
     return {"status": "API running"}
