@@ -1,7 +1,11 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(
+    title="Gestión de Proyectos API",
+    description="API para gestionar proyectos, tareas y usuarios.",
+    version="1.0.0"
+)
 
 @app.get("/")
-def read_root():
-    return {"message": "Corriendo gestión de proyectos API!!!"}
+def health_check():
+    return {"status": "API is running!"}
