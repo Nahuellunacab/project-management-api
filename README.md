@@ -4,7 +4,9 @@ API REST para la gestión de proyectos y tareas.
 
 Este proyecto fue desarrollado como parte de mi portfolio de backend para demostrar conocimientos de arquitectura backend moderna utilizando Python y FastAPI.
 
-## Stack Tecnológico
+---
+
+# Stack Tecnológico
 
 * Python
 * FastAPI
@@ -13,10 +15,15 @@ Este proyecto fue desarrollado como parte de mi portfolio de backend para demost
 * Alembic (migraciones de base de datos)
 * Pydantic (validación de datos)
 * Passlib + bcrypt (hash seguro de contraseñas)
+* JWT (autenticación)
 
-## Funcionalidades Implementadas
+---
 
-### Registro de Usuario
+# Funcionalidades Implementadas
+
+## Autenticación de Usuarios
+
+### Registro de usuario
 
 Endpoint:
 
@@ -37,15 +44,76 @@ Ejemplo de request:
 }
 ```
 
-## Arquitectura del Proyecto
+---
 
-El proyecto sigue una estructura modular separando responsabilidades:
+### Login de usuario
+
+Endpoint:
+
+POST /auth/login
+
+Flujo del login:
+
+email + password  
+↓  
+buscar usuario en la base de datos  
+↓  
+verificar contraseña con bcrypt  
+↓  
+generar JWT  
+↓  
+devolver access_token  
+
+Respuesta esperada:
+
+```json
+{
+  "access_token": "eyJhbGc...",
+  "token_type": "bearer"
+}
+```
+
+---
+
+### Obtener usuario autenticado
+
+Endpoint:
+
+GET /users/me
+
+Este endpoint requiere un **JWT válido**.
+
+El token se envía en el header:
+
+Authorization: Bearer \<token>
+
+Permite identificar al usuario autenticado.
+
+Ejemplo de respuesta:
+
+```json
+{
+  "id": 1,
+  "email": "usuario@example.com",
+  "created_at": "..."
+}
+```
+
+---
+
+# Arquitectura del Proyecto
+
+El proyecto sigue una arquitectura modular separando responsabilidades.
 
 ```
 app
  ├ api
+ │   ├ dependencies
+ │   │   └ auth.py
+ │   │
  │   └ v1
- │       └ auth.py
+ │       ├ auth.py
+ │       └ users.py
  │
  ├ core
  │   └ security.py
@@ -58,22 +126,40 @@ app
  │   └ user.py
  │
  ├ schemas
- │   └ user.py
+ │   ├ user.py
+ │   └ token.py
  │
  └ services
-     └ user_service.py
+     ├ user_service.py
+     └ auth_service.py
 ```
 
 Descripción de cada capa:
 
-* **api** → define los endpoints HTTP
-* **schemas** → validación de datos con Pydantic
-* **services** → lógica de negocio
-* **models** → modelos de base de datos (SQLAlchemy)
-* **db** → configuración de conexión a base de datos
-* **core** → utilidades del sistema (seguridad, configuración, etc.)
+**api**  
+Define los endpoints HTTP.
 
-## Cómo ejecutar el proyecto
+**dependencies**  
+Contiene dependencias reutilizables como autenticación JWT.
+
+**schemas**  
+Validación y serialización de datos con Pydantic.
+
+**services**  
+Contiene la lógica de negocio del sistema.
+
+**models**  
+Define los modelos de base de datos usando SQLAlchemy.
+
+**db**  
+Configura la conexión a PostgreSQL.
+
+**core**  
+Contiene utilidades del sistema como seguridad y manejo de tokens.
+
+---
+
+# Cómo ejecutar el proyecto
 
 Clonar el repositorio:
 
@@ -119,20 +205,24 @@ Abrir la documentación automática:
 http://127.0.0.1:8000/docs
 ```
 
-## Base de Datos
+---
+
+# Base de Datos
 
 El proyecto utiliza **PostgreSQL** como base de datos.
 
 Las migraciones se gestionan con **Alembic**, lo que permite versionar cambios en el esquema de la base de datos.
 
-## Roadmap del Proyecto
+---
+
+# Roadmap del Proyecto
 
 Próximas funcionalidades planificadas:
 
-* Login de usuarios
-* Autenticación con JWT
-* Middleware de autenticación
 * CRUD de proyectos
 * CRUD de tareas
+* Relación usuario → proyectos
+* Relación proyectos → tareas
 * Autorización por usuario
 * Dockerización del backend
+* Tests automáticos
