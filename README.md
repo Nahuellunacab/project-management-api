@@ -101,6 +101,73 @@ Ejemplo de respuesta:
 
 ---
 
+# Gestión de Proyectos
+
+Cada usuario puede crear y gestionar sus propios proyectos.
+
+Endpoints disponibles:
+
+POST /projects  
+GET /projects  
+GET /projects/{id}  
+PUT /projects/{id}  
+DELETE /projects/{id}
+
+Características:
+
+* Los proyectos están asociados al usuario autenticado
+* Un usuario solo puede acceder a sus propios proyectos
+* Protección mediante JWT
+
+Ejemplo de creación de proyecto:
+
+```json
+{
+  "name": "API Portfolio",
+  "description": "Proyecto de práctica con FastAPI"
+}
+```
+
+---
+
+# Gestión de Tareas
+
+Cada proyecto puede contener múltiples tareas.
+
+Endpoints disponibles:
+
+POST /tasks  
+PUT /tasks/{id}  
+DELETE /tasks/{id}
+
+Cada tarea contiene:
+
+* title
+* description
+* status
+* project_id
+
+Estados posibles de una tarea:
+
+```
+pending
+in_progress
+done
+```
+
+Ejemplo de creación de tarea:
+
+```json
+{
+  "title": "Implementar autenticación",
+  "description": "Agregar login con JWT",
+  "status": "pending",
+  "project_id": 1
+}
+```
+
+---
+
 # Arquitectura del Proyecto
 
 El proyecto sigue una arquitectura modular separando responsabilidades.
@@ -113,7 +180,9 @@ app
  │   │
  │   └ v1
  │       ├ auth.py
- │       └ users.py
+ │       ├ users.py
+ │       ├ projects.py
+ │       └ tasks.py
  │
  ├ core
  │   └ security.py
@@ -123,15 +192,21 @@ app
  │   └ session.py
  │
  ├ models
- │   └ user.py
+ │   ├ user.py
+ │   ├ project.py
+ │   └ task.py
  │
  ├ schemas
  │   ├ user.py
+ │   ├ project.py
+ │   ├ task.py
  │   └ token.py
  │
  └ services
      ├ user_service.py
-     └ auth_service.py
+     ├ auth_service.py
+     ├ project_service.py
+     └ task_service.py
 ```
 
 Descripción de cada capa:
@@ -219,10 +294,9 @@ Las migraciones se gestionan con **Alembic**, lo que permite versionar cambios e
 
 Próximas funcionalidades planificadas:
 
-* CRUD de proyectos
-* CRUD de tareas
-* Relación usuario → proyectos
-* Relación proyectos → tareas
-* Autorización por usuario
+* Relación bidireccional entre entidades en SQLAlchemy
+* Endpoint `GET /projects/{id}/tasks`
+* Filtros y paginación
 * Dockerización del backend
-* Tests automáticos
+* Tests automáticos con pytest
+* CI/CD
