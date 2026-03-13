@@ -1,4 +1,12 @@
 # Project Management API
+# Project Management API
+
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-framework-green)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-database-blue)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 API REST para la gestión de proyectos y tareas.
 
@@ -16,6 +24,36 @@ Este proyecto fue desarrollado como parte de mi portfolio de backend para demost
 * Pydantic (validación de datos)
 * Passlib + bcrypt (hash seguro de contraseñas)
 * JWT (autenticación)
+
+---
+
+# Arquitectura del Dominio
+
+El sistema sigue el siguiente modelo de datos:
+
+User
+ └── Projects
+        └── Tasks
+
+Cada usuario puede tener múltiples proyectos, y cada proyecto puede contener múltiples tareas.
+
+---
+
+# Endpoints de la API
+| Método | Endpoint | Descripción |
+|------|------|------|
+| POST | /auth/register | Registrar usuario |
+| POST | /auth/login | Login y generación de JWT |
+| GET | /users/me | Obtener usuario autenticado |
+| POST | /projects | Crear proyecto |
+| GET | /projects | Listar proyectos |
+| GET | /projects/{id} | Obtener proyecto |
+| PUT | /projects/{id} | Actualizar proyecto |
+| DELETE | /projects/{id} | Eliminar proyecto |
+| POST | /tasks | Crear tarea |
+| PUT | /tasks/{id} | Actualizar tarea |
+| DELETE | /tasks/{id} | Eliminar tarea |
+
 
 ---
 
@@ -287,6 +325,21 @@ http://127.0.0.1:8000/docs
 El proyecto utiliza **PostgreSQL** como base de datos.
 
 Las migraciones se gestionan con **Alembic**, lo que permite versionar cambios en el esquema de la base de datos.
+
+---
+
+# Versión
+
+Versión actual: **v1.0.0**
+
+Primera versión funcional del sistema con:
+
+- autenticación JWT
+- gestión de usuarios
+- CRUD de proyectos
+- CRUD de tareas
+- autorización por usuario
+
 
 ---
 
