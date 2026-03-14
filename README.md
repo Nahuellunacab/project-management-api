@@ -41,8 +41,6 @@ Cada usuario puede tener m√∫ltiples proyectos, y cada proyecto puede contener m√
 
 ---
 
----
-
 # Arquitectura de Base de Datos (ERD)
 
 El sistema utiliza un modelo relacional con tres entidades principales:
