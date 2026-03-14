@@ -41,6 +41,53 @@ Cada usuario puede tener múltiples proyectos, y cada proyecto puede contener m�
 
 ---
 
+---
+
+# Arquitectura de Base de Datos (ERD)
+
+El sistema utiliza un modelo relacional con tres entidades principales:
+
+- User
+- Project
+- Task
+
+Relaciones:
+
+- Un **User** puede tener múltiples **Projects**
+- Un **Project** puede tener múltiples **Tasks**
+
+Diagrama de entidades:
+
+```mermaid
+erDiagram
+
+USER {
+    int id
+    string email
+    string password_hash
+    datetime created_at
+}
+
+PROJECT {
+    int id
+    string name
+    string description
+    int owner_id
+}
+
+TASK {
+    int id
+    string title
+    string description
+    string status
+    int project_id
+}
+
+USER ||--o{ PROJECT : owns
+PROJECT ||--o{ TASK : contains
+
+---
+
 # Arquitectura del Sistema
 
 El backend sigue una arquitectura por capas separando responsabilidades.
