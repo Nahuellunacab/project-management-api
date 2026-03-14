@@ -33,9 +33,9 @@ Este proyecto fue desarrollado como parte de mi **portfolio de backend** para de
 
 El sistema sigue el siguiente modelo de datos:
 
-User
-└── Projects
-└── Tasks
+User  
+ └── Projects  
+      └── Tasks  
 
 Cada usuario puede tener múltiples proyectos, y cada proyecto puede contener múltiples tareas.
 
@@ -83,6 +83,7 @@ TASK {
 
 USER ||--o{ PROJECT : owns
 PROJECT ||--o{ TASK : contains
+```
 
 ---
 
@@ -92,15 +93,15 @@ El backend sigue una arquitectura por capas separando responsabilidades.
 
 Flujo de una request:
 
-Cliente
-↓
-FastAPI Router
-↓
-Service Layer (lógica de negocio)
-↓
-SQLAlchemy ORM
-↓
-PostgreSQL
+Cliente  
+↓  
+FastAPI Router  
+↓  
+Service Layer (lógica de negocio)  
+↓  
+SQLAlchemy ORM  
+↓  
+PostgreSQL  
 
 Diagrama de arquitectura:
 
@@ -125,19 +126,19 @@ Este flujo representa cómo viajan las requests dentro del backend.
 
 # Endpoints de la API
 
-| Método | Endpoint       | Descripción                 |
-| ------ | -------------- | --------------------------- |
-| POST   | /auth/register | Registrar usuario           |
-| POST   | /auth/login    | Login y generación de JWT   |
-| GET    | /users/me      | Obtener usuario autenticado |
-| POST   | /projects      | Crear proyecto              |
-| GET    | /projects      | Listar proyectos            |
-| GET    | /projects/{id} | Obtener proyecto            |
-| PUT    | /projects/{id} | Actualizar proyecto         |
-| DELETE | /projects/{id} | Eliminar proyecto           |
-| POST   | /tasks         | Crear tarea                 |
-| PUT    | /tasks/{id}    | Actualizar tarea            |
-| DELETE | /tasks/{id}    | Eliminar tarea              |
+| Método | Endpoint | Descripción |
+|------|------|------|
+| POST | /auth/register | Registrar usuario |
+| POST | /auth/login | Login y generación de JWT |
+| GET | /users/me | Obtener usuario autenticado |
+| POST | /projects | Crear proyecto |
+| GET | /projects | Listar proyectos |
+| GET | /projects/{id} | Obtener proyecto |
+| PUT | /projects/{id} | Actualizar proyecto |
+| DELETE | /projects/{id} | Eliminar proyecto |
+| POST | /tasks | Crear tarea |
+| PUT | /tasks/{id} | Actualizar tarea |
+| DELETE | /tasks/{id} | Eliminar tarea |
 
 ---
 
@@ -197,15 +198,15 @@ POST /auth/login
 
 Flujo del login:
 
-email + password
-↓
-buscar usuario en la base de datos
-↓
-verificar contraseña con bcrypt
-↓
-generar JWT
-↓
-devolver access_token
+email + password  
+↓  
+buscar usuario en la base de datos  
+↓  
+verificar contraseña con bcrypt  
+↓  
+generar JWT  
+↓  
+devolver access_token  
 
 Respuesta esperada:
 
@@ -252,10 +253,10 @@ Cada usuario puede crear y gestionar sus propios proyectos.
 
 Endpoints disponibles:
 
-POST /projects
-GET /projects
-GET /projects/{id}
-PUT /projects/{id}
+POST /projects  
+GET /projects  
+GET /projects/{id}  
+PUT /projects/{id}  
 DELETE /projects/{id}
 
 Características:
@@ -281,8 +282,8 @@ Cada proyecto puede contener múltiples tareas.
 
 Endpoints disponibles:
 
-POST /tasks
-PUT /tasks/{id}
+POST /tasks  
+PUT /tasks/{id}  
 DELETE /tasks/{id}
 
 Cada tarea contiene:
@@ -357,25 +358,25 @@ app
 
 Descripción de cada capa:
 
-**api**
+**api**  
 Define los endpoints HTTP.
 
-**dependencies**
+**dependencies**  
 Contiene dependencias reutilizables como autenticación JWT.
 
-**schemas**
+**schemas**  
 Validación y serialización de datos con Pydantic.
 
-**services**
+**services**  
 Contiene la lógica de negocio del sistema.
 
-**models**
+**models**  
 Define los modelos de base de datos usando SQLAlchemy.
 
-**db**
+**db**  
 Configura la conexión a PostgreSQL.
 
-**core**
+**core**  
 Contiene utilidades del sistema como seguridad y configuración.
 
 ---
