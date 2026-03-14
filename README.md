@@ -431,7 +431,34 @@ alembic upgrade head
 
 Versión actual:
 
-**v1.0.0**
+**v1.1.0**
+
+Incluye:
+
+* backend completo con FastAPI
+* autenticación JWT
+* CRUD de proyectos
+* CRUD de tareas
+* autorización por usuario
+* arquitectura backend por capas
+* dockerización del backend
+* PostgreSQL en contenedor
+* migraciones ejecutadas dentro de Docker
+* mejoras en documentación
+
+---
+
+# Changelog
+
+## v1.1.0
+
+* Dockerización del backend
+* Docker Compose con PostgreSQL
+* ejecución de migraciones Alembic dentro del contenedor
+* mejoras en documentación del README
+* agregado diagrama de arquitectura del sistema
+
+## v1.0.0
 
 Primera versión funcional del sistema con:
 
@@ -441,8 +468,6 @@ Primera versión funcional del sistema con:
 * CRUD de tareas
 * autorización por usuario
 * arquitectura backend por capas
-* backend dockerizado
-* migraciones con Alembic
 
 ---
 
